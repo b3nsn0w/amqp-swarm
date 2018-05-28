@@ -44,9 +44,12 @@ amqp-swarm is currently in alpha and has not reached version 1.0.0 yet. Here is 
 - [x] Server-client communication
 - [x] Server-server communication
 - [ ] Error handling
+- [ ] Full documentation and examples
 - [x] Custom socket support
 
 Error handling will use rejected promises. Currently, unhandled requests return `null`, in the future they will throw errors.
+
+"Full documentation and examples" refers to multi-node examples, apart from that, the initial docs are mostly done. Test coverage is also a bit lacking at the moment.
 
 # Usage
 
@@ -270,3 +273,9 @@ Here are some example messages:
     result: 'go, i will. good relations with the wookies, i have'
   }
 ```
+
+# Contributing
+
+Pull requests are welcome. As always, be respectful towards each other and maybe run or create tests, as appropriate. It's on `npm test`, as usual.
+
+amqp-swarm is available under the MIT license.
