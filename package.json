@@ -1,0 +1,36 @@
+{
+  "name": "amqp-swarm",
+  "version": "0.1.0-preview.0",
+  "description": "Simple, but scalable communication layer between per-client nodes",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b3nsn0w/amqp-swarm.git"
+  },
+  "keywords": [
+    "amqp",
+    "messaging",
+    "swarm"
+  ],
+  "author": "Ben Snow <balintbence97@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b3nsn0w/amqp-swarm/issues"
+  },
+  "homepage": "https://github.com/b3nsn0w/amqp-swarm#readme",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "pre-commit": "^1.2.2",
+    "standard": "^11.0.1",
+    "ws": "^5.2.0",
+    "wtfnode": "^0.6.0"
+  }
+}
