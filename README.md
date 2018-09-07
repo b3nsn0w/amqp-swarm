@@ -12,7 +12,7 @@ amqp-swarm defines a client and a node. The node is not a physical server but ra
 
 Data exchange happens on a request-response basis. Three separate forms of requests are defined, client requets, server requests, and remote client requests.
 
-![Fig 1: Single node structure](doc/single-node.svg)
+![Fig 1: Single node structure](doc/single-node.svg?sanitize=true)
 
 Note: the arrows only illustrate the request, responses flow through the same path in reverse (e.g. a client can respond to a remote client request directly).
 
@@ -22,7 +22,7 @@ Note: the arrows only illustrate the request, responses flow through the same pa
 
 The "swarm" is logically the library, and physically an AMQP server or cluster. It is used to transmit server and remote client requests.
 
-![Fig 2: Multi node structure](doc/multi-node.svg)
+![Fig 2: Multi node structure](doc/multi-node.svg?sanitize=true)
 
 Remote client requests are passed through the recipient node, which allows it to edit the request.
 
