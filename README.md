@@ -43,7 +43,8 @@ amqp-swarm is currently in alpha and has not reached version 1.0.0 yet. Here is 
 
 - [x] Server-client communication
 - [x] Server-server communication
-- [ ] Error handling
+- [x] Error handling (undocumented)
+- [ ] Server-side ping
 - [ ] Full documentation and examples
 - [x] Custom socket support
 

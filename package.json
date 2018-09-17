@@ -1,6 +1,6 @@
 {
   "name": "amqp-swarm",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Simple, but scalable communication layer between per-client nodes",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/b3nsn0w/amqp-swarm#readme",
   "dependencies": {
     "amqplib": "^0.5.2",
+    "async-unwrap": "^1.0.1",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

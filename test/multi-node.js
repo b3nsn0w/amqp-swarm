@@ -1,6 +1,9 @@
 /* eslint-env mocha */
+/* eslint-disable no-unused-expressions */
+
 const WebSocket = require('ws')
 const {expect} = require('chai')
+const unwrap = require('async-unwrap')
 
 const amqpSwarm = require('..')
 
@@ -49,11 +52,28 @@ describe('multi node', () => {
     // now we are editing an argument, but still keeping the client side
     nodes.ani.remoteClient.on('my new', (ctx, empire) => empire === 'republic' ? ['empire'] : [empire])
     clients.ani.on('my new', (ctx, empire) => `my new ${empire}`)
+
+    // this will never succeed
+    clients.ani.on('save padme', (ctx) => ctx.throw('rage', {killObi: false, killPadme: true}))
   })
 
   it('can send server requests', async () => {
     const result = await nodes.ani.send('sheev', 'power', 'unlimited')
     expect(result).to.equal('unlimited power')
+  })
+
+  it('can handle errors on server requests', async function () {
+    this.timeout(5000)
+    const [err, result] = await nodes.ani.send('windu', 'five reasons I should be master')[unwrap] // you can send to nodes that don't even exist
+
+    expect(err).to.be.instanceof(amqpSwarm.server.ErrorType)
+
+    expect(err.type).to.equal('protocol')
+    expect(err.subtype).to.equal('timeout') // yeah, you won't succeed (what did you expect), but at least it's handled
+
+    expect(result).to.be.null
+
+    setImmediate(() => console.log('sorry for the timeout'))
   })
 
   it('can send remote client requests', async () => {
@@ -71,7 +91,19 @@ describe('multi node', () => {
     expect(result).to.equal('my new empire')
   })
 
-  // TODO add extra test cases for complex data, failures (when we have error handling), etc.
+  it('can handle errors on remote client requests', async () => {
+    const [err, result] = await nodes.sheev.remoteClient.send('ani', 'save padme')[unwrap]
+
+    expect(err).to.be.instanceof(amqpSwarm.client.ErrorType)
+    expect(err.message).to.equal('rage')
+    expect(err.type).to.equal('endpoint')
+    expect(err.data.killObi).to.be.false
+    expect(err.data.killPadme).to.be.true
+
+    expect(result).to.be.null
+  })
+
+  // TODO add extra test cases for complex data to test serialization
 
   after(() => {
     clients.ani.close()
