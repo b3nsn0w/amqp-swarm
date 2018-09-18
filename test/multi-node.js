@@ -2,13 +2,13 @@
 /* eslint-disable no-unused-expressions */
 
 const WebSocket = require('ws')
-const {expect} = require('chai')
+const { expect } = require('chai')
 const unwrap = require('async-unwrap')
 
 const amqpSwarm = require('..')
 
 const server = amqpSwarm.server()
-const wss = new WebSocket.Server({port: 29553})
+const wss = new WebSocket.Server({ port: 29553 })
 const nodes = {}
 
 const checklists = new Map()
@@ -54,7 +54,7 @@ describe('multi node', () => {
     clients.ani.on('my new', (ctx, empire) => `my new ${empire}`)
 
     // this will never succeed
-    clients.ani.on('save padme', (ctx) => ctx.throw('rage', {killObi: false, killPadme: true}))
+    clients.ani.on('save padme', (ctx) => ctx.throw('rage', { killObi: false, killPadme: true }))
   })
 
   it('can send server requests', async () => {

@@ -2,13 +2,13 @@
 /* eslint-disable no-unused-expressions */
 
 const WebSocket = require('ws')
-const {expect} = require('chai')
+const { expect } = require('chai')
 const unwrap = require('async-unwrap')
 
 const amqpSwarm = require('..')
 
 const server = amqpSwarm.server()
-const wss = new WebSocket.Server({port: 29552})
+const wss = new WebSocket.Server({ port: 29552 })
 const client = amqpSwarm.client('ws://localhost:29552/test')
 
 const node = new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ describe('single node', () => {
   before(async () => {
     const awaitedNode = await node
     awaitedNode.client.on('hello there', (ctx, jediMaster) => {
-      if (jediMaster === 'anakin') awaitedNode.throw('take a seat', {council: true, master: false})
+      if (jediMaster === 'anakin') awaitedNode.throw('take a seat', { council: true, master: false })
       return `general ${jediMaster}`
     })
     client.on('is that legal?', () => 'i will make it legal')

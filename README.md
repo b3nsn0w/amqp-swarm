@@ -43,16 +43,15 @@ amqp-swarm is currently in alpha and has not reached version 1.0.0 yet. Here is 
 
 - [x] Server-client communication
 - [x] Server-server communication
-- [x] Error handling (undocumented)
-- [ ] Server-side ping
+- [x] Error handling
+- [x] Server-side ping
 - [ ] Pattern matching for request handlers
+- [ ] Connection deduplication
 - [x] Full documentation
 - [ ] Examples
 - [x] Custom socket support
 
-Error handling will use rejected promises. Currently, unhandled requests return `null`, in the future they will throw errors.
-
-"Full documentation and examples" refers to multi-node examples, apart from that, the initial docs are mostly done. Test coverage is also a bit lacking at the moment.
+"Examples" refers to multi-node examples, apart from that, the initial docs are mostly done. Test coverage is also a bit lacking at the moment.
 
 # Usage
 
@@ -238,7 +237,18 @@ Creates a node, the server-side representation of the client.
  - `id`: The node ID, an arbitrary string. Automatically generated if omitted.
  - `socket`: The socket through which the node communicates with the client. WebSocket implementations are usually compatible ([ws](https://github.com/websockets/ws) has been tested), refer to the [protocol guide](#protocol-guide) for instructions on how to use custom sockets.
 
-The returned value is the node interface with the following properties:
+The returned value is the node interface.
+
+#### `server.connected`
+
+A promise that gets resolved when the server connects to AMQP
+
+#### `server.events`
+
+Event emitter interface for miscellaneous server events. Currently supported events:
+
+  - `open`: fired when the AMQP interface is connected
+  - `close`: fired when the server is closed
 
 ## Node
 
@@ -301,6 +311,16 @@ Thows an `AmqpSwarmError` that can carry custom data through a handler.
 #### `node.close()`
 
 Closes the connection.
+
+#### `node.isOpen`
+
+Open state of the node, starts from true and becomes false when the node has closed
+
+#### `node.events`
+
+Event emitter interface for miscellaneous node events. Currently supported events:
+
+ - `close`: fired when the node closes
 
 ## Context
 
