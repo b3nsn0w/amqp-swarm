@@ -1,6 +1,6 @@
 {
   "name": "amqp-swarm",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Simple, but scalable communication layer between per-client nodes",
   "main": "index.js",
   "scripts": {
